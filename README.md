@@ -1,5 +1,7 @@
 # NuGet.FrameworkAssemblyPacker
 
+[![Build status](https://ci.appveyor.com/api/projects/status/5jtbw2xo1l4i2vse/branch/master?svg=true)](https://ci.appveyor.com/project/m0sa/nuget-frameworkassemblypacker/branch/master)
+
 [A pollyfill for nuget Issue #](https://github.com/NuGet/Home/issues/4853) that allows adding `<frameworkAssemblies>` to nuget packages built with the `<Project Sdk="Microsoft.NET.Sdk">`.
 
 ### Usage
