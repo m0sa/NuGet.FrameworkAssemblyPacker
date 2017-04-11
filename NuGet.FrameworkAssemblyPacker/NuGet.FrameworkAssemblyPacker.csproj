@@ -6,6 +6,7 @@
     <IsTool>true</IsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
     <DebugType>embedded</DebugType>
+    <PackageVersion>1.0.0$(PackageVersionSuffix)</PackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
