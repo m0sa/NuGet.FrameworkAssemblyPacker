@@ -1,0 +1,6 @@
+version: 1.0.0-alpha{build}
+image: Visual Studio 2017
+build_script:
+- ps: .\build.ps1 -PreReleaseSuffix "-alpha$env:appveyor_build_number"
+artifacts:
+- path: .nupkgs/*.nupkg
