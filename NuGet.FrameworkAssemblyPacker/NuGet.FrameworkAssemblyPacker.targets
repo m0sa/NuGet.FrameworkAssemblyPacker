@@ -1,16 +1,4 @@
 <Project>
-  <PropertyGroup>
-    <CleanDependsOn>$(CleanDependsOn);_CleanNuSpec</CleanDependsOn>
-  </PropertyGroup>
-
-  <Target Name="_CleanNuSpec">
-    <PropertyGroup>
-      <_NuSpecPrefix>$(MSBuildProjectDirectory)\$(BaseIntermediateOutputPath)$(MSBuildProjectName).$(PackageVersion)</_NuSpecPrefix>
-      <_NuSpec>$(_NuSpecPrefix).nuspec</_NuSpec>
-      <_NuSpecPatched>$(_NuSpecPrefix).patched.nuspec</_NuSpecPatched>
-    </PropertyGroup>
-    <Delete Files="$(_NuSpecPatched)" Condition="Exists('$(_NuSpecPatched)')" />
-  </Target>
 
   <Target Name="_ExtractReferences">
     <ItemGroup>
@@ -30,10 +18,17 @@
   </Target>
 
   <UsingTask 
-    TaskName="BuildTasks.Test" 
+    TaskName="NuGet.FrameworkAssemblyPacker.AddFrameworkAssemblies"
     AssemblyFile="$(MSBuildThisFileDirectory)\..\tools\NuGet.FrameworkAssemblyPacker.dll" />
 
-  <Target Name="PackWithFrameworkAssemblies" DependsOnTargets="_CleanNuSpec;_ExtractReferences;Pack" AfterTargets="Pack" Condition="'$(IsPackable)' == 'true'">
+  <Target Name="PackWithFrameworkAssemblies" DependsOnTargets="_ExtractReferences;" AfterTargets="Pack" Condition="'$(IsPackable)' == 'true'">
+
+    <PropertyGroup>
+      <_NuSpecPrefix>$(MSBuildProjectDirectory)\$(BaseIntermediateOutputPath)$(MSBuildProjectName).$(PackageVersion)</_NuSpecPrefix>
+      <_NuSpec>$(_NuSpecPrefix).nuspec</_NuSpec>
+      <_NuSpecPatched>$(_NuSpecPrefix).patched.nuspec</_NuSpecPatched>
+    </PropertyGroup>
+
     <Message Text="Repackaging -> '$(MSBuildProjectName)' from '$(_NuSpecPatched)'" Importance="high" Condition=" '@(_FrameworkAssembly)' != '' " />
     <AddFrameworkAssemblies NuSpecFile="$(_NuSpec)" PatchedNuSpecFile="$(_NuSpecPatched)" FrameworkAssemblies="@(_FrameworkAssembly)" Condition=" '@(_FrameworkAssembly)' != '' " />
     <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Pack" Properties="NuspecFile=$(_NuSpecPatched)" Condition=" '@(_FrameworkAssembly)' != '' " />
