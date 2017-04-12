@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.3</TargetFramework>
-    <MinClientVersion>3.5</MinClientVersion>
+    <MinClientVersion>4.0</MinClientVersion>
     <IsTool>true</IsTool>
     <DevelopmentDependency>true</DevelopmentDependency>
     <DebugType>embedded</DebugType>
@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="NuGet.FrameworkAssemblyPacker.targets" Pack="true" PackagePath="build" />
+    <None Include="NuGet.FrameworkAssemblyPacker.targets" Pack="true" PackagePath="buildCrossTargeting" />
   </ItemGroup>
 
   <ItemGroup>
